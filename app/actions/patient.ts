@@ -4,6 +4,42 @@ import db from "@/lib/db";
 import { PatientFormSchema } from "@/lib/schema";
 import { clerkClient } from "@clerk/nextjs/server";
 
+export async function updatePatient(data: any, pid: string) {
+    try {
+        const validateDate = PatientFormSchema.safeParse(data);
+
+        if (!validateDate.success) {
+            return {
+                success: false,
+                error: true,
+                msg: "Provide required all fields"
+            };
+        }
+
+        const patientData = validateDate.data;
+
+        const client = await clerkClient();
+
+        await client.users.updateUser(pid, {
+            firstName: patientData.first_name,
+            lastName: patientData.last_name,
+            publicMetadata: { role: "patient" }
+        });
+
+        await db.patient.update({
+            data: {
+                ...patientData
+            },
+            where: { id: pid }
+        });
+
+        return { success: true, error: false, msg: "Patient info updated successfully" };
+    } catch (error: any) {
+        console.log(error);
+        return { success: false, error: true, msg: error?.message };
+    }
+}
+
 export async function createNewPatient(data: any, pid: string) {
     try {
         const validateDate = PatientFormSchema.safeParse(data);
