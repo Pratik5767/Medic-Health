@@ -1,30 +1,28 @@
-import { clerkMiddleware } from "@clerk/nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
-import { routeMatchers } from "./lib/routes";
+import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
+import { NextResponse } from "next/server";
+import { routeAccess } from "./lib/routes";
 
-// const matchers = Object.keys(routeAccess).map((route) => ({
-//     matcher: createRouteMatcher([route]),
-//     allowedRoles: routeAccess[route]
-// }));
-
-const checkRoleAndRedirect = (
-    req: NextRequest,
-    role: string | undefined,
-    allowedRoles: keyof typeof routeMatchers
-): NextResponse | undefined => {
-    if (routeMatchers[allowedRoles](req) && role != allowedRoles) {
-        const url = new URL("/", req.url);
-        console.log("Unathorized access, redirecting to:", url);
-        return NextResponse.redirect(url);
-    }
-};
+const matchers = Object.keys(routeAccess).map((route) => ({
+    matcher: createRouteMatcher([route]),
+    allowedRoles: routeAccess[route]
+}));
 
 export default clerkMiddleware(async (auth, req) => {
     const { userId, sessionClaims } = await auth();
-    const role = (sessionClaims?.metadata as { role?: string })?.role;
+    const url = new URL(req.url);
 
-    const response = checkRoleAndRedirect(req, role, "admin") || checkRoleAndRedirect(req, role, "doctor");
-    if (response) return response;
+    const role = 
+    userId && sessionClaims?.metadata?.role ? sessionClaims.metadata.role : userId ? "patient" : "sign-in";
+
+    const matchingRoute = matchers.find(({ matcher }) => matcher(req));
+
+    if (matchingRoute && !matchingRoute.allowedRoles.includes(role)) {
+        // Redirect unauthorized roles to their respective default pages
+        return NextResponse.redirect(new URL(`/${role}`, url.origin));
+    }
+
+    // Continue if the user is authorized
+    return NextResponse.next();
 });
 
 export const config = {

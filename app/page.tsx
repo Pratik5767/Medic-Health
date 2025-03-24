@@ -1,10 +1,17 @@
 import { Button } from "@/components/ui/button";
+import { getRole } from "@/utils/roles";
 import { UserButton } from "@clerk/nextjs";
 import { auth } from "@clerk/nextjs/server";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function Home() {
     const { userId } = await auth();
+    const role = await getRole();
+
+    if (userId && role) {
+        redirect(`/${role}`);
+    }
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen px-6 bg-gradient-to-br from-blue-100 via-white to-blue-50">
@@ -24,7 +31,7 @@ export default async function Home() {
                 <div className="flex gap-6">
                     {userId ? (
                         <>
-                            <Link href={"/dashboard"}>
+                            <Link href={`/${role}`}>
                                 <Button>View Dashboard</Button>
                             </Link>
                             <UserButton />
