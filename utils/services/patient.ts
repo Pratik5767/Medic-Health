@@ -44,7 +44,7 @@ export async function getPatientDashboardStatistics(id: string) {
         return {
             success: true,
             data,
-            appointmentsCounts: null,
+            appointmentCounts: {CANCELLED: 0, PENDING: 0, SCHEDULED: 0, COMPLETED: 0},
             Last5Records: null,
             totalAppointments: appointments.length,
             availableDoctor: null,
