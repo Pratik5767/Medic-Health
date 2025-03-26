@@ -69,7 +69,7 @@ const NewPatient = ({ data, type }: DataProps) => {
             router.push("/patient");
         } else {
             console.log(res);
-            toast.error("Failed to create message");
+            toast.error("Failed to create patient");
         }
     }
 

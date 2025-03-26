@@ -1,3 +1,4 @@
+import StatSummary from '@/components/charts/StatSummary';
 import StatCard from '@/components/StatCard';
 import { Button } from '@/components/ui/button';
 import { getPatientDashboardStatistics } from '@/utils/services/patient';
@@ -88,10 +89,25 @@ const PatientDashboard = async () => {
                         }
                     </div>
                 </div>
+
+                <div className='w-[500px]'>
+                    {/* <AppointmentChart data={monthlyData} /> */}
+                </div>
+
+                <div className='bg-white rounded-xl p-4 mt-8'>
+                    {/* <RecentAppointments data={Last5Records} /> */}
+                </div>
             </div>
+
             {/* RIGHT */}
             <div className='w-full xl:w-[30%]'>
+                <div className='w-full h-[450px] mb-8'>
+                    <StatSummary data={appointmentCounts} total={totalAppointments} />
+                </div>
 
+                {/* <AvailableDoctors data={availableDoctor} /> */}
+
+                {/* <PatientRatingContainer /> */}
             </div>
         </div>
     )
