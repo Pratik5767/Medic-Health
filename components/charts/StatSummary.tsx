@@ -17,12 +17,12 @@ const StatSummary = ({ data, total }: { data: any, total: number }) => {
         },
         {
             name: "Appointment",
-            count: data?.PENDING + data?.SCHEDULED || 64,
+            count: data?.PENDING + data?.SCHEDULED || 0,
             fill: "#000000"
         },
         {
             name: "Consultation",
-            count: data?.COMPLETED || 37,
+            count: data?.COMPLETED || 0,
             fill: "#2563eb"
         },
     ];
@@ -69,7 +69,7 @@ const StatSummary = ({ data, total }: { data: any, total: number }) => {
                         <h1 className='font-bold'>{formatNumber(appointment)}</h1>
                     </div>
 
-                    <h2 className='text-xl text-gray-400'>
+                    <h2 className='text-1xl text-gray-400'>
                         {dataInfo[1].name}(
                         {(((appointment / (appointment + consultation)) * 100).toFixed(0))}
                         )
@@ -82,7 +82,7 @@ const StatSummary = ({ data, total }: { data: any, total: number }) => {
                         <h1 className='font-bold'>{formatNumber(consultation)}</h1>
                     </div>
 
-                    <h2 className='text-xl text-gray-400'>
+                    <h2 className='text-1xl text-gray-400'>
                         {dataInfo[2].name}(
                         {(((consultation / (appointment + consultation)) * 100).toFixed(0))}
                         )
@@ -93,4 +93,4 @@ const StatSummary = ({ data, total }: { data: any, total: number }) => {
     )
 }
 
-export default StatSummary
+export default StatSummary;

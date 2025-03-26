@@ -30,7 +30,7 @@ const StatCard = ({ title, icon, note, value, className, iconClassName, link }: 
                     asChild
                     size={'sm'}
                     variant={'outline'}
-                    className='font-normal text-xs bg-transparent p-2 h-0'
+                    className='font-normal text-xs bg-transparent'
                 >
                     <Link href={link}>See details</Link>
                 </Button>

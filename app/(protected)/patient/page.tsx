@@ -10,6 +10,7 @@ import React from 'react';
 
 const PatientDashboard = async () => {
     const user = await currentUser();
+
     const {
         data,
         appointmentCounts,
@@ -65,7 +66,7 @@ const PatientDashboard = async () => {
     return (
         <div className='py-6 px-3 flex flex-col rounded-xl xl:flex-row gap-6'>
             {/* LEFT */}
-            <div className='w-full xl:w-[69%]'>
+            <div className='w-full xl:w-[70%]'>
                 <div className='bg-white rounded-xl p-4 mb-8'>
                     <div className='flex items-center justify-between mb-4'>
                         <h1 className='text-lg xl:text-2xl font-semibold'>
