@@ -99,14 +99,24 @@ export async function getPatientDashboardStatistics(id: string) {
                         name: true,
                         img: true,
                         specialization: true
-                    }
-                }
+                    },
+                },
+                patient: {
+                    select: {
+                        first_name: true,
+                        last_name: true,
+                        gender: true,
+                        date_of_birth: true,
+                        img: true
+                    },
+                },
             },
 
             orderBy: { appointment_date: "desc" },
         });
 
         const { appointmentCounts, monthlyData } = await processAppointments(appointments);
+        
         const Last5Records = appointments.splice(0, 5);
 
         const availableDoctor = await db.doctor.findMany({

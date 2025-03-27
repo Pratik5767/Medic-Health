@@ -1,5 +1,7 @@
+import AppointmentChart from '@/components/charts/AppointmentChart';
 import StatSummary from '@/components/charts/StatSummary';
 import StatCard from '@/components/StatCard';
+import RecentAppointments from '@/components/tables/RecentAppointments';
 import { Button } from '@/components/ui/button';
 import { getPatientDashboardStatistics } from '@/utils/services/patient';
 import { currentUser } from '@clerk/nextjs/server';
@@ -91,12 +93,12 @@ const PatientDashboard = async () => {
                     </div>
                 </div>
 
-                <div className='w-[500px]'>
-                    {/* <AppointmentChart data={monthlyData} /> */}
+                <div className='h-[500px]'>
+                    <AppointmentChart data={monthlyData} />
                 </div>
 
                 <div className='bg-white rounded-xl p-4 mt-8'>
-                    {/* <RecentAppointments data={Last5Records} /> */}
+                    <RecentAppointments data={Last5Records} />
                 </div>
             </div>
 
