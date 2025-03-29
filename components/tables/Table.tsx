@@ -19,8 +19,6 @@ const Table = ({ columns, renderRow, data }: TableProps) => {
                 </tr>
             </thead>
 
-            
-
             <tbody>
                 {
                     data?.length < 1 && (

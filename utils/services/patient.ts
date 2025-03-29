@@ -31,15 +31,10 @@ export const processAppointments = async (appointments: Appointment[]) => {
 
     const appointmentCounts = appointments.reduce<Record<AppointmentStatus, number>>((acc, appointment) => {
         const status = appointment.status;
-
         const appointmentDate = appointment?.appointment_date;
-
         const monthIndex = getMonth(appointmentDate);
 
-        if (
-            appointmentDate >= startOfYear(new Date()) &&
-            appointmentDate <= endOfMonth(new Date())
-        ) {
+        if ( appointmentDate >= startOfYear(new Date()) && appointmentDate <= endOfMonth(new Date())) {
             monthlyData[monthIndex].appointment += 1;
 
             if (status === "COMPLETED") {
@@ -116,11 +111,10 @@ export async function getPatientDashboardStatistics(id: string) {
         });
 
         const { appointmentCounts, monthlyData } = await processAppointments(appointments);
-        
         const Last5Records = appointments.splice(0, 5);
 
         const availableDoctor = await db.doctor.findMany({
-            select: {id: true, name: true, specialization: true, img: true},
+            select: { id: true, name: true, specialization: true, img: true },
             take: 6,
         });
 

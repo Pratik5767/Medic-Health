@@ -57,10 +57,8 @@ const NewPatient = ({ data, type }: DataProps) => {
 
     const onSubmit: SubmitHandler<z.infer<typeof PatientFormSchema>> = async (values) => {
         setLoading(true);
-        const res = 
-            type === "create" 
-            ? await createNewPatient(values, userId!) 
-            : await updatePatient(values, userId!);
+        const res = type === "create" ? 
+            await createNewPatient(values, userId!) : await updatePatient(values, userId!);
         setLoading(false);
         
         if (res?.success) {

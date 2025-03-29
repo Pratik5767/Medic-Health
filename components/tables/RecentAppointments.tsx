@@ -5,6 +5,8 @@ import Table from './Table';
 import { Appointment } from '@/types/data.types';
 import ProfileImage from '../ProfileImage';
 import { format } from 'date-fns';
+import AppointmentStatusIndicator from '../AppointmentStatusIndicator';
+import ViewAppointment from '../ViewAppointment';
 
 interface DataProps {
     data: any[];
@@ -52,7 +54,7 @@ const RecentAppointments = ({ data }: DataProps) => {
                     />
 
                     <div>
-                        <h3 className='text-sm md:text-base md:font-medium uppercase'>{name}</h3>
+                        <h3 className='text-sm md:font-medium uppercase'>{name}</h3>
 
                         <span className='text-xs capitalize'>
                             {item?.patient?.gender?.toLowerCase()}
@@ -69,7 +71,7 @@ const RecentAppointments = ({ data }: DataProps) => {
                 </td>
 
                 <td className='hidden md:table-cell items-center py-2'>
-                    <div className=''>
+                    <div className='flex items-center gap-2 2x:gap-4'>
                         <ProfileImage
                             url={item?.doctor?.img!}
                             name={item?.doctor?.name}
@@ -77,9 +79,21 @@ const RecentAppointments = ({ data }: DataProps) => {
                         />
 
                         <div>
-                            <h3 className='font-medium'>{item?.doctor?.name}</h3>
+                            <h3 className='font-medium uppercase'>{item?.doctor?.name}</h3>
                             <span className='text-xs capitalize'>{item?.doctor?.specialization}</span>
                         </div>
+                    </div>
+                </td>
+
+                <td className='hidden xl:table-cell'>
+                    <AppointmentStatusIndicator status={item?.status} />
+                </td>
+
+                <td>
+                    <div className='flex items-center gap-x-2'>
+                        <ViewAppointment id={item?.id}/>
+                        
+                        <Link href={`/record/appointments/${item?.id}`} className=''>See all</Link>
                     </div>
                 </td>
             </tr>
