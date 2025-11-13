@@ -1,5 +1,4 @@
 import { getAppointmentById } from '@/utils/services/appointment';
-import React from 'react'
 import { Dialog, DialogHeader, DialogContent, DialogTitle, DialogTrigger, DialogDescription } from './ui/dialog';
 import { Button } from './ui/button';
 import { calculateAge, formatDateTime } from '@/utils';
@@ -15,14 +14,12 @@ const ViewAppointment = async ({ id }: { id: string | undefined }) => {
     const { data } = await getAppointmentById(Number(id));
     const { userId } = await auth();
 
-    if (!data) {
-        return null;
-    }
+    if (!data) return null;
 
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={'outline'} className='flex items-center justify-center rounded-full bg-blue-500/10 text-blue-600 px-1.5 py-1 text-xs md:text-sm hover:cursor-pointer'>
+                <Button variant={'outline'} className='flex items-center justify-center rounded-full bg-blue-500/10 text-blue-600 px-1.5 py-1 text-[9px] md:text-[10px] hover:cursor-pointer'>
                     View
                 </Button>
             </DialogTrigger>
@@ -55,7 +52,7 @@ const ViewAppointment = async ({ id }: { id: string | undefined }) => {
                         </p>
 
                         <div className='flex flex-col md:flex-row gap-6 mb-16'>
-                            <div className='flex gap-3 w-full md:w-1/2'>
+                            <div className='flex gap-3 w-full md:[700px]'>
                                 <ProfileImage
                                     url={data?.patient?.img!}
                                     name={data?.patient?.first_name + " " + data?.patient?.last_name}
@@ -148,6 +145,7 @@ const ViewAppointment = async ({ id }: { id: string | undefined }) => {
                                     <p className="w-fit bg-blue-100 text-blue-600 py-1 px-2 rounded text-xs md:text-sm mt-4">
                                         Perform Action
                                     </p>
+
                                     <AppointmentAction id={data.id} status={data?.status} />
                                 </>
                             )

@@ -57,7 +57,6 @@ export async function createNewPatient(data: any, pid: string) {
 
         const client = await clerkClient();
         if (pid === "new-patient") {
-
             const user = await client.users.createUser({
                 emailAddress: [patientData.email],
                 password: patientData.phone,

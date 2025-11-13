@@ -3,7 +3,6 @@
 import { useAuth, UserButton } from '@clerk/nextjs'
 import { Bell } from 'lucide-react'
 import { usePathname } from 'next/navigation'
-import React from 'react'
 
 const Navbar = () => {
     const user = useAuth();

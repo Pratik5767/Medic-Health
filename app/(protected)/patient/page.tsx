@@ -1,14 +1,15 @@
+import { AvailableDoctors } from '@/components/AvailableDoctors';
 import AppointmentChart from '@/components/charts/AppointmentChart';
 import StatSummary from '@/components/charts/StatSummary';
 import StatCard from '@/components/StatCard';
 import RecentAppointments from '@/components/tables/RecentAppointments';
 import { Button } from '@/components/ui/button';
+import { AvailableDoctorProps } from '@/types/data.types';
 import { getPatientDashboardStatistics } from '@/utils/services/patient';
 import { currentUser } from '@clerk/nextjs/server';
 import { Briefcase, BriefcaseBusiness, BriefcaseMedical } from 'lucide-react';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import React from 'react';
 
 const PatientDashboard = async () => {
     const user = await currentUser();
@@ -22,13 +23,9 @@ const PatientDashboard = async () => {
         monthlyData
     } = await getPatientDashboardStatistics(user?.id!);
 
-    if (user && !data) {
-        redirect("/patient/registration");
-    }
+    if (user && !data) redirect("/patient/registration");
 
-    if (!data) {
-        return null;
-    }
+    if (!data) return null;
 
     const cardData = [
         {
@@ -87,7 +84,7 @@ const PatientDashboard = async () => {
                     <div className='w-full flex flex-wrap gap-5'>
                         {
                             cardData?.map((el, id) =>
-                                <StatCard key={id} { ...el } link="#" />
+                                <StatCard key={id} {...el} link="#" />
                             )
                         }
                     </div>
@@ -108,7 +105,7 @@ const PatientDashboard = async () => {
                     <StatSummary data={appointmentCounts} total={totalAppointments} />
                 </div>
 
-                {/* <AvailableDoctors data={availableDoctor} /> */}
+                <AvailableDoctors data={availableDoctor as AvailableDoctorProps} />
 
                 {/* <PatientRatingContainer /> */}
             </div>

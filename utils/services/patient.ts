@@ -8,6 +8,16 @@ interface Appointment {
     appointment_date: Date;
 }
 
+const daysOfWeek = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+];
+
 function isValidStatus(status: string): status is AppointmentStatus {
     return ["PENDING", "SCHEDULED", "COMPLETED", "CANCELLED"].includes(status);
 }
@@ -34,7 +44,7 @@ export const processAppointments = async (appointments: Appointment[]) => {
         const appointmentDate = appointment?.appointment_date;
         const monthIndex = getMonth(appointmentDate);
 
-        if ( appointmentDate >= startOfYear(new Date()) && appointmentDate <= endOfMonth(new Date())) {
+        if (appointmentDate >= startOfYear(new Date()) && appointmentDate <= endOfMonth(new Date())) {
             monthlyData[monthIndex].appointment += 1;
 
             if (status === "COMPLETED") {
@@ -113,9 +123,21 @@ export async function getPatientDashboardStatistics(id: string) {
         const { appointmentCounts, monthlyData } = await processAppointments(appointments);
         const Last5Records = appointments.splice(0, 5);
 
+        const today = daysOfWeek[new Date().getDay()];
+
         const availableDoctor = await db.doctor.findMany({
-            select: { id: true, name: true, specialization: true, img: true },
-            take: 6,
+            select: { id: true, name: true, specialization: true, img: true, working_days: true },
+            where: {
+                working_days: {
+                    some: {
+                        day: {
+                            equals: today,
+                            mode: "insensitive",
+                        },
+                    },
+                },
+            },
+            take: 4,
         });
 
         return {
@@ -124,7 +146,7 @@ export async function getPatientDashboardStatistics(id: string) {
             appointmentCounts,
             Last5Records,
             totalAppointments: appointments.length,
-            availableDoctor: null,
+            availableDoctor,
             monthlyData,
             status: 200
         };

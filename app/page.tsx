@@ -29,28 +29,31 @@ export default async function Home() {
                 </p>
 
                 <div className="flex gap-6">
-                    {userId ? (
-                        <>
-                            <Link href={`/${role}`}>
-                                <Button>View Dashboard</Button>
-                            </Link>
-                            <UserButton />
-                        </>
-                    ) : (
-                        <>
-                            <Link href="/sign-up">
-                                <Button className="px-6 py-3 text-lg font-semibold rounded-lg shadow-md bg-blue-700 text-white hover:bg-blue-800 transition-all cursor-pointer">
-                                    New Patient
-                                </Button>
-                            </Link>
+                    {
+                        userId ? (
+                            <>
+                                <Link href={`/${role}`}>
+                                    <Button>View Dashboard</Button>
+                                </Link>
+                                
+                                <UserButton />
+                            </>
+                        ) : (
+                            <>
+                                <Link href="/sign-up">
+                                    <Button className="px-6 py-3 text-lg font-semibold rounded-lg shadow-md bg-blue-700 text-white hover:bg-blue-800 transition-all cursor-pointer">
+                                        New Patient
+                                    </Button>
+                                </Link>
 
-                            <Link href="/sign-in">
-                                <Button variant="outline" className="px-6 py-3 text-lg border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white transition-all rounded-lg cursor-pointer">
-                                    Login to Account
-                                </Button>
-                            </Link>
-                        </>
-                    )}
+                                <Link href="/sign-in">
+                                    <Button variant="outline" className="px-6 py-3 text-lg border-2 border-blue-700 text-blue-700 hover:bg-blue-700 hover:text-white transition-all rounded-lg cursor-pointer">
+                                        Login to Account
+                                    </Button>
+                                </Link>
+                            </>
+                        )
+                    }
                 </div>
             </div>
 

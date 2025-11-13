@@ -1,7 +1,6 @@
 import { getRole } from '@/utils/roles';
 import { Bell, LayoutDashboard, List, ListOrdered, Logs, LucideIcon, Pill, Receipt, Settings, SquareActivity, User, UserRound, Users, UsersRound } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
 import LogoutButton from './LogoutButton';
 
 const ACCESS_LEVELS_ALL = [

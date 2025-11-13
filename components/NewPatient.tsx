@@ -3,7 +3,7 @@
 import { useUser } from '@clerk/nextjs';
 import { Patient } from '@prisma/client';
 import { useRouter } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
 import { Form } from './ui/form';
 import { SubmitHandler, useForm } from 'react-hook-form';
@@ -57,10 +57,10 @@ const NewPatient = ({ data, type }: DataProps) => {
 
     const onSubmit: SubmitHandler<z.infer<typeof PatientFormSchema>> = async (values) => {
         setLoading(true);
-        const res = type === "create" ? 
+        const res = type === "create" ?
             await createNewPatient(values, userId!) : await updatePatient(values, userId!);
         setLoading(false);
-        
+
         if (res?.success) {
             toast.success(res.msg);
             form.reset();
@@ -138,6 +138,7 @@ const NewPatient = ({ data, type }: DataProps) => {
                                     placeholder="John"
                                     label="First Name"
                                 />
+                                
                                 <CustomInput
                                     type="input"
                                     control={form.control}

@@ -1,4 +1,3 @@
-import React from 'react'
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import Table from './Table';
@@ -46,7 +45,7 @@ const RecentAppointments = ({ data }: DataProps) => {
 
         return (
             <tr key={item?.id} className='border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-slate-50'>
-                <td className='flex items-center gap-2 2xl:gap-4 py-2 xl:py-4'>
+                <td className='flex items-center gap-2 2xl:gap-2 py-1 xl:py-2'>
                     <ProfileImage 
                         url={item?.patient?.img!} 
                         name={name} 
@@ -54,24 +53,24 @@ const RecentAppointments = ({ data }: DataProps) => {
                     />
 
                     <div>
-                        <h3 className='text-sm md:font-medium uppercase'>{name}</h3>
+                        <h3 className='text-[10px] md:font-medium uppercase'>{name}</h3>
 
-                        <span className='text-xs capitalize'>
+                        <span className='text-[10px] capitalize'>
                             {item?.patient?.gender?.toLowerCase()}
                         </span>
                     </div>
                 </td>
 
-                <td className='hidden md:table-cell'>
+                <td className='hidden md:table-cell text-[10px]'>
                     {format(item.appointment_date, "yyyy-MM-dd")}
                 </td>
 
-                <td className='hidden md:table-cell'>
+                <td className='hidden md:table-cell text-[10px]'>
                     {item?.time}
                 </td>
 
                 <td className='hidden md:table-cell items-center py-2'>
-                    <div className='flex items-center gap-2 2x:gap-4'>
+                    <div className='flex items-center gap-2 2x:gap-2'>
                         <ProfileImage
                             url={item?.doctor?.img!}
                             name={item?.doctor?.name}
@@ -79,8 +78,8 @@ const RecentAppointments = ({ data }: DataProps) => {
                         />
 
                         <div>
-                            <h3 className='font-medium uppercase'>{item?.doctor?.name}</h3>
-                            <span className='text-xs capitalize'>{item?.doctor?.specialization}</span>
+                            <h3 className='font-medium uppercase text-[10px]'>{item?.doctor?.name}</h3>
+                            <span className='text-xs capitalize text-[10px]'>{item?.doctor?.specialization}</span>
                         </div>
                     </div>
                 </td>

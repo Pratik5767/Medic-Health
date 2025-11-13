@@ -1,26 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `firstName` on the `Patient` table. All the data in the column will be lost.
-  - You are about to drop the column `insurance_id` on the `Patient` table. All the data in the column will be lost.
-  - You are about to drop the column `insurance_name` on the `Patient` table. All the data in the column will be lost.
-  - You are about to drop the column `lastName` on the `Patient` table. All the data in the column will be lost.
-  - You are about to drop the column `phone_number` on the `Patient` table. All the data in the column will be lost.
-  - You are about to drop the `User` table. If the table is not empty, all the data it contains will be lost.
-  - A unique constraint covering the columns `[email]` on the table `Patient` will be added. If there are existing duplicate values, this will fail.
-  - Added the required column `emergency_contact_name` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `emergency_contact_number` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `first_name` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `last_name` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `marital_status` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `medical_consent` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `phone` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `privacy_consent` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `relation` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `service_consent` to the `Patient` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `updated_at` to the `Patient` table without a default value. This is not possible if the table is not empty.
-
-*/
 -- CreateEnum
 CREATE TYPE "Role" AS ENUM ('ADMIN', 'NURSE', 'DOCTOR', 'LAB_TECHNICIAN', 'PATIENT', 'CASHIER');
 
@@ -42,36 +19,36 @@ CREATE TYPE "PaymentMethod" AS ENUM ('CASH', 'CARD');
 -- CreateEnum
 CREATE TYPE "PaymentStatus" AS ENUM ('PAID', 'UNPAID', 'PART');
 
--- AlterTable
-ALTER TABLE "Patient" DROP COLUMN "firstName",
-DROP COLUMN "insurance_id",
-DROP COLUMN "insurance_name",
-DROP COLUMN "lastName",
-DROP COLUMN "phone_number",
-ADD COLUMN     "allergies" TEXT,
-ADD COLUMN     "blood_group" TEXT,
-ADD COLUMN     "colorCode" TEXT,
-ADD COLUMN     "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-ADD COLUMN     "emergency_contact_name" TEXT NOT NULL,
-ADD COLUMN     "emergency_contact_number" TEXT NOT NULL,
-ADD COLUMN     "first_name" TEXT NOT NULL,
-ADD COLUMN     "gender" "Gender" NOT NULL DEFAULT 'MALE',
-ADD COLUMN     "img" TEXT,
-ADD COLUMN     "insurance_number" TEXT,
-ADD COLUMN     "last_name" TEXT NOT NULL,
-ADD COLUMN     "marital_status" TEXT NOT NULL,
-ADD COLUMN     "medical_conditions" TEXT,
-ADD COLUMN     "medical_consent" BOOLEAN NOT NULL,
-ADD COLUMN     "medical_history" TEXT,
-ADD COLUMN     "phone" TEXT NOT NULL,
-ADD COLUMN     "privacy_consent" BOOLEAN NOT NULL,
-ADD COLUMN     "relation" TEXT NOT NULL,
-ADD COLUMN     "service_consent" BOOLEAN NOT NULL,
-ADD COLUMN     "updated_at" TIMESTAMP(3) NOT NULL,
-ALTER COLUMN "insurance_provider" DROP NOT NULL;
+-- CreateTable
+CREATE TABLE "Patient" (
+    "id" TEXT NOT NULL,
+    "first_name" TEXT NOT NULL,
+    "last_name" TEXT NOT NULL,
+    "date_of_birth" TIMESTAMP(3) NOT NULL,
+    "gender" "Gender" NOT NULL DEFAULT 'MALE',
+    "phone" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "marital_status" TEXT NOT NULL,
+    "address" TEXT NOT NULL,
+    "emergency_contact_name" TEXT NOT NULL,
+    "emergency_contact_number" TEXT NOT NULL,
+    "relation" TEXT NOT NULL,
+    "blood_group" TEXT,
+    "allergies" TEXT,
+    "medical_conditions" TEXT,
+    "medical_history" TEXT,
+    "insurance_provider" TEXT,
+    "insurance_number" TEXT,
+    "privacy_consent" BOOLEAN NOT NULL,
+    "service_consent" BOOLEAN NOT NULL,
+    "medical_consent" BOOLEAN NOT NULL,
+    "img" TEXT,
+    "colorCode" TEXT,
+    "created_at" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMP(3) NOT NULL,
 
--- DropTable
-DROP TABLE "User";
+    CONSTRAINT "Patient_pkey" PRIMARY KEY ("id")
+);
 
 -- CreateTable
 CREATE TABLE "Doctor" (
@@ -284,6 +261,9 @@ CREATE TABLE "Services" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Patient_email_key" ON "Patient"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Doctor_email_key" ON "Doctor"("email");
 
 -- CreateIndex
@@ -294,9 +274,6 @@ CREATE UNIQUE INDEX "Payment_appointment_id_key" ON "Payment"("appointment_id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "LabTest_service_id_key" ON "LabTest"("service_id");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Patient_email_key" ON "Patient"("email");
 
 -- AddForeignKey
 ALTER TABLE "WorkingDays" ADD CONSTRAINT "WorkingDays_doctor_id_fkey" FOREIGN KEY ("doctor_id") REFERENCES "Doctor"("id") ON DELETE CASCADE ON UPDATE CASCADE;

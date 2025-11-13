@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
 import { LucideIcon } from 'lucide-react';
-import React from 'react'
 import { Card, CardContent, CardFooter, CardHeader } from './ui/card';
 import { Button } from './ui/button';
 import Link from 'next/link';
@@ -23,7 +22,7 @@ const CardIcon = ({ icon: Icon}: {icon: LucideIcon}) => {
 const StatCard = ({ title, icon, note, value, className, iconClassName, link }: CardProps) => {
     return (
         <Card className={cn("w-full md:w-[330px] 2xl:w-[250px]", className)}>
-            <CardHeader className='flex flex-row items-center justify-between py-3 capitalize'>
+            <CardHeader className='flex flex-row items-center justify-between capitalize'>
                 <h3>{title}</h3>
 
                 <Button
@@ -48,7 +47,7 @@ const StatCard = ({ title, icon, note, value, className, iconClassName, link }: 
                 </div>
             </CardContent>
 
-            <CardFooter className='pb-3'>
+            <CardFooter>
                 <p className='text-sm text-gray-500'>{note}</p>
             </CardFooter>
         </Card>

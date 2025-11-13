@@ -1,6 +1,5 @@
 import { cn } from '@/lib/utils';
 import { AppointmentStatus } from '@prisma/client';
-import React from 'react'
 
 const status_color = {
     PENDING: "bg-yellow-600/15 text-yellow-600",
@@ -11,7 +10,7 @@ const status_color = {
 
 const AppointmentStatusIndicator = ({status}: {status: AppointmentStatus}) => {
     return (
-        <p className={cn("w-fit px-2 py-1 rounded-full capitalize text-xs lg:text-sm", status_color[status])}>
+        <p className={cn("w-fit px-2 py-1 rounded-full capitalize text-[9px] lg:text-[10px]", status_color[status])}>
             {status}
         </p>
     )
