@@ -19,7 +19,7 @@ const ViewAppointment = async ({ id }: { id: string | undefined }) => {
     return (
         <Dialog>
             <DialogTrigger asChild>
-                <Button variant={'outline'} className='flex items-center justify-center rounded-full bg-blue-500/10 text-blue-600 px-1.5 py-1 text-[9px] md:text-[10px] hover:cursor-pointer'>
+                <Button variant={'outline'} className='flex items-center justify-center rounded-md bg-blue-500/10 text-blue-600 text-[9px] md:text-[10px] hover:cursor-pointer p-2'>
                     View
                 </Button>
             </DialogTrigger>

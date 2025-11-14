@@ -127,7 +127,7 @@ export async function getPatientDashboardStatistics(id: string) {
                     },
                 },
             },
-            take: 6,
+            take: 4,
         });
 
         return {

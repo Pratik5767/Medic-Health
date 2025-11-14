@@ -1,6 +1,7 @@
 import { AvailableDoctors } from '@/components/AvailableDoctors';
 import AppointmentChart from '@/components/charts/AppointmentChart';
 import StatSummary from '@/components/charts/StatSummary';
+import PatientRatingContainer from '@/components/PatientRatingContainer';
 import StatCard from '@/components/StatCard';
 import RecentAppointments from '@/components/tables/RecentAppointments';
 import { Button } from '@/components/ui/button';
@@ -107,7 +108,7 @@ const PatientDashboard = async () => {
 
                 <AvailableDoctors data={availableDoctor as AvailableDoctorProps} />
 
-                {/* <PatientRatingContainer /> */}
+                <PatientRatingContainer />
             </div>
         </div>
     )

@@ -46,26 +46,26 @@ const RecentAppointments = ({ data }: DataProps) => {
         return (
             <tr key={item?.id} className='border-b border-gray-200 even:bg-slate-50 text-sm hover:bg-slate-50'>
                 <td className='flex items-center gap-2 2xl:gap-2 py-1 xl:py-2'>
-                    <ProfileImage 
-                        url={item?.patient?.img!} 
-                        name={name} 
+                    <ProfileImage
+                        url={item?.patient?.img!}
+                        name={name}
                         className='bg-violet-600 items-center'
                     />
 
                     <div>
-                        <h3 className='text-[10px] md:font-medium uppercase'>{name}</h3>
+                        <h3 className='text-[11px] md:font-medium uppercase'>{name}</h3>
 
-                        <span className='text-[10px] capitalize'>
+                        <span className='text-[11px] capitalize'>
                             {item?.patient?.gender?.toLowerCase()}
                         </span>
                     </div>
                 </td>
 
-                <td className='hidden md:table-cell text-[10px]'>
+                <td className='hidden md:table-cell text-[11px]'>
                     {format(item.appointment_date, "yyyy-MM-dd")}
                 </td>
 
-                <td className='hidden md:table-cell text-[10px]'>
+                <td className='hidden md:table-cell text-[11px]'>
                     {item?.time}
                 </td>
 
@@ -78,8 +78,8 @@ const RecentAppointments = ({ data }: DataProps) => {
                         />
 
                         <div>
-                            <h3 className='font-medium uppercase text-[10px]'>{item?.doctor?.name}</h3>
-                            <span className='text-xs capitalize text-[10px]'>{item?.doctor?.specialization}</span>
+                            <h3 className='font-medium uppercase text-[11px]'>{item?.doctor?.name}</h3>
+                            <span className='text-xs capitalize text-[11px]'>{item?.doctor?.specialization}</span>
                         </div>
                     </div>
                 </td>
@@ -90,9 +90,11 @@ const RecentAppointments = ({ data }: DataProps) => {
 
                 <td>
                     <div className='flex items-center gap-x-2'>
-                        <ViewAppointment id={item?.id}/>
-                        
-                        <Link href={`/record/appointments/${item?.id}`} className=''>See all</Link>
+                        <ViewAppointment id={item?.id} />
+
+                        <Link href={`/record/appointments/${item?.id}`} className='flex items-center justify-center rounded-md bg-blue-500/10 text-blue-600 p-2 text-[9px] md:text-[10px] hover:cursor-pointer'>
+                            See all
+                        </Link>
                     </div>
                 </td>
             </tr>
