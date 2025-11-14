@@ -4,17 +4,9 @@ import { Button } from './ui/button';
 import Link from 'next/link';
 import { Card } from './ui/card';
 import ProfileImage from './ProfileImage';
+import { daysOfWeek } from '@/utils';
 
 const getToday = () => {
-    const daysOfWeek = [
-        "sunday",
-        "monday",
-        "tuesday",
-        "wednesday",
-        "thursday",
-        "friday",
-        "saturday",
-    ];
     const today = new Date().getDay();
     return daysOfWeek[today];
 };
@@ -32,7 +24,7 @@ interface DataProps {
 }
 
 const availableDays = ({ data }: { data: Days[] }) => {
-    const isTodayWorkingDay = data?.find((dayObj) => dayObj?.day === todayDay);
+    const isTodayWorkingDay = data?.find((dayObj) => dayObj.day.toLowerCase() === todayDay);
 
     return isTodayWorkingDay ? `${isTodayWorkingDay?.start_time} - ${isTodayWorkingDay?.close_time}` : 'Not Available';
 };

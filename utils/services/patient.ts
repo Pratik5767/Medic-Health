@@ -1,5 +1,6 @@
 import db from "@/lib/db";
 import { getMonth, format, startOfYear, endOfMonth } from "date-fns";
+import { daysOfWeek } from "..";
 
 type AppointmentStatus = "PENDING" | "SCHEDULED" | "COMPLETED" | "CANCELLED";
 
@@ -7,16 +8,6 @@ interface Appointment {
     status: AppointmentStatus;
     appointment_date: Date;
 }
-
-const daysOfWeek = [
-    "sunday",
-    "monday",
-    "tuesday",
-    "wednesday",
-    "thursday",
-    "friday",
-    "saturday",
-];
 
 function isValidStatus(status: string): status is AppointmentStatus {
     return ["PENDING", "SCHEDULED", "COMPLETED", "CANCELLED"].includes(status);
@@ -124,7 +115,6 @@ export async function getPatientDashboardStatistics(id: string) {
         const Last5Records = appointments.splice(0, 5);
 
         const today = daysOfWeek[new Date().getDay()];
-
         const availableDoctor = await db.doctor.findMany({
             select: { id: true, name: true, specialization: true, img: true, working_days: true },
             where: {
@@ -137,7 +127,7 @@ export async function getPatientDashboardStatistics(id: string) {
                     },
                 },
             },
-            take: 4,
+            take: 6,
         });
 
         return {

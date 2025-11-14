@@ -55,3 +55,13 @@ export function calculateAge(dob: Date): string {
 
     return ageString + " old";
 }
+
+export const daysOfWeek = [
+    "sunday",
+    "monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+];
