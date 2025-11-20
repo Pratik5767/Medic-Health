@@ -12,6 +12,7 @@ interface ActionProps {
     id: string | number;
     status: string;
 }
+
 const AppointmentAction = ({ id, status }: ActionProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [selected, setSelected] = useState("");
@@ -21,19 +22,12 @@ const AppointmentAction = ({ id, status }: ActionProps) => {
     const handleAction = async () => {
         try {
             setIsLoading(true);
-            const newReason =
-                reason ||
-                `Appointment has ben ${selected.toLowerCase()} on ${new Date()}`;
+            const newReason = reason || `Appointment has ben ${selected.toLowerCase()} on ${new Date()}`;
 
-            const resp = await appointmentAction(
-                id,
-                selected as AppointmentStatus,
-                newReason
-            );
+            const resp = await appointmentAction(id, selected as AppointmentStatus, newReason);
 
             if (resp.success) {
                 toast.success(resp.msg);
-
                 router.refresh();
             } else if (resp.error) {
                 toast.error(resp.msg);

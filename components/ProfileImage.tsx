@@ -6,12 +6,14 @@ const ProfileImage = ({
     url,
     name,
     className,
-    textClassName
+    textClassName,
+    bgColor
 }: {
     url?: string;
     name: string;
     className?: string;
     textClassName?: string;
+    bgColor?: string;
 }) => {
     if (url)
         return (
@@ -26,7 +28,10 @@ const ProfileImage = ({
 
     if (name) {
         return (
-            <div className={cn("flex md:hidden lg:flex w-8 h-8 rounded-full text-white text-base items-baseline justify-center font-light", className)}>
+            <div
+                className={cn("flex md:hidden lg:flex w-8 h-8 rounded-full text-white text-base items-center justify-center font-light", className)}
+                style={{ backgroundColor: bgColor || "#2563eb" }}
+            >
                 <p className={textClassName}>{getInitials(name)}</p>
             </div>
         )
